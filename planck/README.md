@@ -33,7 +33,19 @@ https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=930935#47
 
 > Ok, this patch disables SSE2 and forces Webkit to use CLoop, the C-based JavaScript interpreter (instead of using JIT or the asm-based intepreter). That's the one used when the CPU is unknown or not supported.
 
-(See also https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=931052)
+https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=931052
+
+https://bugs.debian.org/cgi-bin/bugreport.cgi?att=1;bug=931052;filename=webkit2gtk-2.24.2-1_2.24.2-2.diff;msg=5
+
+```diff
+-# The 32-bit x86 build requires SSE2
++# Use the CLoop Javascript interpreter and disable the JIT. This is
++# slow but it is the most compatible solution for old (non-SSE2) CPUs.
+ ifneq (,$(filter $(DEB_HOST_ARCH),i386))
+-	CFLAGS += -msse2 -mfpmath=sse
++	EXTRA_CMAKE_ARGUMENTS += -DENABLE_JIT=OFF -DENABLE_C_LOOP=ON
+ endif
+```
 
 For comparison, clojure's startup time is much faster on the same hardware:
 
