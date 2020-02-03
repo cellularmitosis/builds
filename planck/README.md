@@ -33,6 +33,8 @@ https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=930935#47
 
 > Ok, this patch disables SSE2 and forces Webkit to use CLoop, the C-based JavaScript interpreter (instead of using JIT or the asm-based intepreter). That's the one used when the CPU is unknown or not supported.
 
+(See also https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=931052)
+
 For comparison, clojure's startup time is much faster on the same hardware:
 
 ```
